@@ -15,6 +15,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
   <style>
@@ -97,6 +98,146 @@
       color: var(--text-dim);
       text-transform: uppercase;
       letter-spacing: 1.5px;
+    }
+
+    /* ======== Sticky Mini Player ======== */
+    .mini-player {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      width: calc(100% - 32px);
+      max-width: 440px;
+      height: 64px;
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 32px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 8px 0 12px;
+      transform: translate(-50%, 150%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      visibility: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .mini-player.mini-player--visible {
+      transform: translate(-50%, 0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mini-player__vinyl {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      margin-right: 12px;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mini-player__vinyl::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      background-color: #111;
+      background-image:
+        url('assets/vinyl.png'),
+        radial-gradient(circle at 50% 50%, #111 18%, transparent 18.5%),
+        radial-gradient(circle at 50% 50%, transparent 30%, rgba(255, 255, 255, 0.03) 30.5%, transparent 31%),
+        radial-gradient(circle at 50% 50%, transparent 42%, rgba(255, 255, 255, 0.025) 42.5%, transparent 43%),
+        conic-gradient(from 0deg, #1a1a1a 0%, #222 25%, #1a1a1a 50%, #222 75%, #1a1a1a 100%);
+      background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06);
+      z-index: 0;
+    }
+
+    .mini-player__vinyl::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      z-index: 1;
+    }
+
+    .mini-player__vinyl svg {
+      width: 10px;
+      height: 10px;
+      fill: #000;
+      stroke: #000;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mini-player.mini-player--playing .mini-player__vinyl::after {
+      animation: vinyl-spin 3s linear infinite;
+    }
+
+    .mini-player__info {
+      flex: 1;
+      min-width: 0;
+      margin-right: 8px;
+    }
+
+    .mini-player__station {
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+
+    .mini-player__controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .mini-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    
+    .mini-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .mini-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .mini-btn:active {
+      transform: scale(0.9);
     }
 
     /* ======== Layout ======== */
@@ -298,6 +439,11 @@
         0 0 40px var(--accent-glow);
     }
 
+    .play-btn--error::before {
+      background: #ef4444;
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+    }
+
     @keyframes vinyl-spin {
       from {
         transform: rotate(0deg);
@@ -320,8 +466,9 @@
       }
     }
 
-    /* ======== Mute Button ======== */
-    .mute-btn {
+    /* ======== Mute Button & Hero Fav Button ======== */
+    .mute-btn,
+    .fav-btn-hero {
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -336,13 +483,16 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .mute-btn svg {
+    .mute-btn svg,
+    .fav-btn-hero svg {
       width: 20px;
       height: 20px;
+      transition: fill 0.2s, color 0.2s;
     }
 
-    .mute-btn:active {
-      transform: scale(0.88);
+    .mute-btn:active,
+    .fav-btn-hero:active {
+      transform: scale(0.92);
     }
 
     .mute-btn--muted {
@@ -550,7 +700,9 @@
       transition: fill 0.2s, color 0.2s;
     }
 
-    .fav-btn svg.fav-active {
+    .fav-btn svg.fav-active,
+    .fav-btn-mini svg.fav-active,
+    .fav-btn-hero svg.fav-active {
       color: var(--accent);
       fill: var(--accent);
     }
@@ -751,6 +903,20 @@
 
 <body>
 
+  <!-- Sticky Mini Player -->
+  <div class="mini-player" id="mini-player">
+    <button class="mini-player__vinyl" id="mini-play-btn" title="Play / Pause">
+      <i data-lucide="play"></i>
+    </button>
+    <div class="mini-player__info">
+      <div class="mini-player__station" id="mini-station">Оберіть станцію</div>
+    </div>
+    <div class="mini-player__controls">
+      <button class="mini-btn fav-btn-mini" id="mini-fav-btn" title="Додати в улюблене"><i data-lucide="heart"></i></button>
+      <button class="mini-btn" id="mini-mute-btn" title="Mute / Unmute"><i data-lucide="volume-2"></i></button>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <span class="header__logo">
@@ -784,7 +950,7 @@
         <div class="player__controls">
           <button class="mute-btn" id="mute-btn" title="Mute / Unmute"><i data-lucide="volume-2"></i></button>
           <button class="play-btn" id="play-btn" title="Play / Pause"><i data-lucide="play"></i></button>
-          <div style="width:48px"></div> <!-- Spacer for visual centering -->
+          <button class="fav-btn-hero" id="hero-fav-btn" title="Додати в улюблене"><i data-lucide="heart"></i></button>
         </div>
       </section>
 
@@ -831,6 +997,7 @@
     let genreMap = {};   // { genre: [station, ...] }
     let currentGenre = 'all';
     let currentStation = null;
+    let hlsInstance = null;
     let isPlaying = false;
     let isMuted = false;
     let savedVolume = 0.8;
@@ -1049,6 +1216,10 @@
               }
             }
           }
+          
+          if (currentStation && currentStation.stationuuid === uuid) {
+            updateFavIcons();
+          }
         });
 
         grid.appendChild(card);
@@ -1065,6 +1236,23 @@
       playBtn.innerHTML = playing
         ? '<i data-lucide="pause"></i>'
         : '<i data-lucide="play"></i>';
+      
+      const miniPlayBtn = document.getElementById('mini-play-btn');
+      if (miniPlayBtn) {
+        miniPlayBtn.innerHTML = playing
+          ? '<i data-lucide="pause"></i>'
+          : '<i data-lucide="play"></i>';
+      }
+      
+      const miniPlayer = document.getElementById('mini-player');
+      if (miniPlayer) {
+        if (playing) {
+          miniPlayer.classList.add('mini-player--playing');
+        } else {
+          miniPlayer.classList.remove('mini-player--playing');
+        }
+      }
+      
       lucide.createIcons({ nameAttr: 'data-lucide' });
     }
 
@@ -1072,15 +1260,70 @@
       muteBtn.innerHTML = muted
         ? '<i data-lucide="volume-x"></i>'
         : '<i data-lucide="volume-2"></i>';
+      
+      const miniMuteBtn = document.getElementById('mini-mute-btn');
+      if (miniMuteBtn) {
+        miniMuteBtn.innerHTML = muted
+          ? '<i data-lucide="volume-x"></i>'
+          : '<i data-lucide="volume-2"></i>';
+      }
       lucide.createIcons({ nameAttr: 'data-lucide' });
+    }
+
+    function updateFavIcons() {
+      if (!currentStation) return;
+      const isFav = favorites.includes(currentStation.stationuuid);
+      
+      const miniFavBtn = document.getElementById('mini-fav-btn');
+      if (miniFavBtn) {
+        const svg = miniFavBtn.querySelector('svg');
+        if (svg) {
+          if (isFav) svg.classList.add('fav-active');
+          else svg.classList.remove('fav-active');
+        }
+      }
+      
+      const heroFavBtn = document.getElementById('hero-fav-btn');
+      if (heroFavBtn) {
+        const svg = heroFavBtn.querySelector('svg');
+        if (svg) {
+          if (isFav) svg.classList.add('fav-active');
+          else svg.classList.remove('fav-active');
+        }
+      }
     }
 
     function playStation(station) {
       currentStation = station;
 
       // Оновлюємо плеєр
-      audio.src = station.url_resolved;
-      audio.play().catch(() => { /* autoplay policy */ });
+      const url = station.url_resolved;
+      
+      if (hlsInstance) {
+        hlsInstance.destroy();
+        hlsInstance = null;
+      }
+
+      const isHlsUrl = url.includes('.m3u8') || (station.codec && station.codec.toUpperCase() === 'HLS');
+
+      if (Hls.isSupported() && isHlsUrl) {
+        hlsInstance = new Hls();
+        hlsInstance.loadSource(url);
+        hlsInstance.attachMedia(audio);
+        hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+          audio.play().catch(() => { /* autoplay policy */ });
+        });
+        hlsInstance.on(Hls.Events.ERROR, function(event, data) {
+          if (data.fatal) {
+            audio.dispatchEvent(new Event('error'));
+          }
+        });
+      } else {
+        // Fallback for native HLS (Safari) or standard streams (MP3/AAC)
+        audio.src = url;
+        audio.play().catch(() => { /* autoplay policy */ });
+      }
+
       isPlaying = true;
 
       // UI
@@ -1088,6 +1331,14 @@
       playerSong.textContent = getSongInfo(station);
       setPlayIcon(true);
       playBtn.classList.add('play-btn--playing');
+      
+      const miniPlayer = document.getElementById('mini-player');
+      const miniStation = document.getElementById('mini-station');
+      if (miniPlayer && miniStation) {
+        miniStation.textContent = station.name;
+      }
+      
+      updateFavIcons();
 
       // Оновлюємо active-картку
       document.querySelectorAll('.station-card').forEach(c => c.classList.remove('station-card--active'));
@@ -1157,12 +1408,78 @@
       }
     });
 
+
+    const miniPlayBtn = document.getElementById('mini-play-btn');
+    if (miniPlayBtn) miniPlayBtn.addEventListener('click', () => playBtn.click());
+    
+    const miniMuteBtn = document.getElementById('mini-mute-btn');
+    if (miniMuteBtn) miniMuteBtn.addEventListener('click', () => muteBtn.click());
+
+    function toggleFavoriteAction() {
+      if (!currentStation) return;
+      const uuid = currentStation.stationuuid;
+      if (favorites.includes(uuid)) {
+        favorites = favorites.filter(id => id !== uuid);
+      } else {
+        favorites.push(uuid);
+      }
+      localStorage.setItem('d3fm_favorites', JSON.stringify(favorites));
+      genreMap.favorites = allStations.filter(st => favorites.includes(st.stationuuid));
+      renderGenres();
+      
+      updateFavIcons();
+      
+      if (currentGenre === 'favorites') {
+        renderStations(); // Re-render the whole list to remove the card if needed
+      } else {
+        // Update the heart in the list if visible
+        const listFavBtn = document.querySelector(`.station-card[data-uuid="${uuid}"] .fav-btn svg`);
+        if (listFavBtn) {
+           if (favorites.includes(uuid)) listFavBtn.classList.add('fav-active');
+           else listFavBtn.classList.remove('fav-active');
+        }
+      }
+    }
+
+    const miniFavBtn = document.getElementById('mini-fav-btn');
+    if (miniFavBtn) miniFavBtn.addEventListener('click', toggleFavoriteAction);
+    
+    const heroFavBtn = document.getElementById('hero-fav-btn');
+    if (heroFavBtn) heroFavBtn.addEventListener('click', toggleFavoriteAction);
+
+    // Scroll Listener for Mini Player
+    window.addEventListener('scroll', () => {
+      const miniPlayer = document.getElementById('mini-player');
+      if (miniPlayer) {
+        if (window.scrollY > 200) {
+          miniPlayer.classList.add('mini-player--visible');
+        } else {
+          miniPlayer.classList.remove('mini-player--visible');
+        }
+      }
+    });
+
     // Якщо потік обірвався
     audio.addEventListener('error', () => {
-      playerSong.textContent = '⚠ Потік недоступний';
+      if (!currentStation) return;
+      playerSong.textContent = '⚠ Потік недоступний, перемикаємо...';
       setPlayIcon(false);
       playBtn.classList.remove('play-btn--playing');
+      playBtn.classList.add('play-btn--error');
       isPlaying = false;
+
+      setTimeout(() => {
+        playBtn.classList.remove('play-btn--error');
+        
+        let stations = genreMap[currentGenre] || allStations;
+        if (!stations || stations.length === 0) return;
+        
+        let currentIndex = stations.findIndex(s => s.stationuuid === currentStation.stationuuid);
+        if (currentIndex !== -1) {
+          let nextIndex = (currentIndex + 1) % stations.length;
+          playStation(stations[nextIndex]);
+        }
+      }, 1500); // 1.5s delay to show the red button and message
     });
 
     // ================================================================
