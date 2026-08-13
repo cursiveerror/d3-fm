@@ -13,9 +13,9 @@
 
   <br>
 
-  [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?style=flat&logo=github)](https://github.com/cursiveerror/d3-fm)
   [![PWA Ready](https://img.shields.io/badge/PWA-Ready-success.svg)](#)
   [![API](https://img.shields.io/badge/API-Radio--Browser-orange.svg)](https://www.radio-browser.info/)
+  [![Media Session API](https://img.shields.io/badge/Media_Session_API-Supported-blue.svg)](#)
 
 </div>
 
