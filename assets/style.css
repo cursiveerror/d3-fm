@@ -1,0 +1,1123 @@
+    /* ================================================================
+       D3.fm — Mobile-First Premium CSS
+       ================================================================ */
+
+    /* ======== Reset ======== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #09090B;
+      --bg-card: #18181B;
+      --bg-card-hover: #27272A;
+      --bg-surface: #18181B;
+      --text: #FAFAFA;
+      --text-dim: #A1A1AA;
+      --accent: #06B6D4;
+      --accent-glow: rgba(6, 182, 212, 0.4);
+      --accent-soft: rgba(6, 182, 212, 0.12);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* All SVG icons inherit currentColor */
+    svg {
+      color: currentColor;
+    }
+
+    /* ======== Header ======== */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-surface);
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .header__logo {
+      font-family: 'Manrope', 'Inter', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--accent);
+    }
+
+    .header__sep {
+      width: 1px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .header__subtitle {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .header__search {
+      margin-left: auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+
+
+    .header__search input {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 6px 14px;
+      color: var(--text);
+      font-size: 0.8rem;
+      width: 110px;
+      transition: width 0.3s, background 0.3s, border-color 0.3s;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .header__search input:focus {
+      width: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s, visibility 0.3s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+    }
+
+    .scroll-to-top:active {
+      transform: scale(0.95);
+    }
+
+    .scroll-to-top svg {
+      width: 22px;
+      height: 22px;
+      stroke: #000;
+    }
+
+    /* ======== Sticky Mini Player ======== */
+    .mini-player {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      width: calc(100% - 32px);
+      max-width: 440px;
+      height: 64px;
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 32px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 8px 0 12px;
+      transform: translate(-50%, 150%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      visibility: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .mini-player.mini-player--visible {
+      transform: translate(-50%, 0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mini-player__vinyl {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      margin-right: 12px;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mini-player__vinyl::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      background-color: #111;
+      background-image:
+        url('vinyl.png'),
+        radial-gradient(circle at 50% 50%, #111 18%, transparent 18.5%),
+        radial-gradient(circle at 50% 50%, transparent 30%, rgba(255, 255, 255, 0.03) 30.5%, transparent 31%),
+        radial-gradient(circle at 50% 50%, transparent 42%, rgba(255, 255, 255, 0.025) 42.5%, transparent 43%),
+        conic-gradient(from 0deg, #1a1a1a 0%, #222 25%, #1a1a1a 50%, #222 75%, #1a1a1a 100%);
+      background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06);
+      z-index: 0;
+    }
+
+    .mini-player__vinyl::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      z-index: 1;
+    }
+
+    .mini-player__vinyl svg {
+      width: 10px;
+      height: 10px;
+      fill: #000;
+      stroke: #000;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mini-player.mini-player--playing .mini-player__vinyl::after {
+      animation: vinyl-spin 3s linear infinite;
+    }
+
+    .mini-player__info {
+      flex: 1;
+      min-width: 0;
+      margin-right: 8px;
+    }
+
+    .mini-player__station {
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+
+    .mini-player__controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .mini-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .mini-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .mini-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .mini-btn:active {
+      transform: scale(0.9);
+    }
+
+    /* ======== Layout ======== */
+    .app {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ======== Sidebar — hidden on mobile, shown on desktop ======== */
+    .sidebar {
+      display: none;
+    }
+
+    .sidebar__title {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    /* ======== Genre Button (shared) ======== */
+    .genre-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .genre-btn--active {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .genre-btn__icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .genre-btn__icon svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .genre-btn__count {
+      margin-left: auto;
+      font-size: 0.65rem;
+      opacity: 0.4;
+    }
+
+    /* ======== Main content ======== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ================================================================
+       PLAYER HERO — Mobile: 55vh native music-player feel
+       ================================================================ */
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 55vh;
+      padding: 32px 20px 28px;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+        var(--bg);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .player__station {
+      font-family: 'Manrope', 'Inter', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+      text-align: center;
+      max-width: 90vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .player__song {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .player__controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    /* ================================================================
+       PLAY BUTTON — Vinyl Record Style
+       ================================================================ */
+    .play-btn {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+      position: relative;
+      transition: transform 0.2s ease;
+      background: transparent;
+    }
+
+    /* Vinyl disc background on ::after so it spins independently */
+    .play-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      background-color: #111;
+      background-image:
+        url('vinyl.png'),
+        radial-gradient(circle at 50% 50%, #111 18%, transparent 18.5%),
+        radial-gradient(circle at 50% 50%, transparent 30%, rgba(255, 255, 255, 0.03) 30.5%, transparent 31%),
+        radial-gradient(circle at 50% 50%, transparent 42%, rgba(255, 255, 255, 0.025) 42.5%, transparent 43%),
+        radial-gradient(circle at 50% 50%, transparent 54%, rgba(255, 255, 255, 0.02) 54.5%, transparent 55%),
+        radial-gradient(circle at 50% 50%, transparent 66%, rgba(255, 255, 255, 0.015) 66.5%, transparent 67%),
+        radial-gradient(circle at 50% 50%, transparent 78%, rgba(255, 255, 255, 0.02) 78.5%, transparent 79%),
+        conic-gradient(from 0deg, #1a1a1a 0%, #222 25%, #1a1a1a 50%, #222 75%, #1a1a1a 100%);
+      background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.06),
+        0 0 30px rgba(6, 182, 212, 0.2);
+      z-index: 0;
+    }
+
+    /* Centre label — accent circle with play/pause icon */
+    .play-btn::before {
+      content: '';
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+      z-index: 1;
+    }
+
+    .play-btn svg {
+      width: 32px;
+      height: 32px;
+      fill: #000;
+      stroke: #000;
+      position: relative;
+      z-index: 2;
+    }
+
+    .play-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* Spinning vinyl when playing */
+    .play-btn--playing::after {
+      animation: vinyl-spin 3s linear infinite;
+      box-shadow:
+        0 0 0 3px rgba(6, 182, 212, 0.2),
+        0 0 40px var(--accent-glow);
+    }
+
+    .play-btn--error::before {
+      background: #ef4444;
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+    }
+
+    .play-btn--error::after {
+      box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.2),
+        0 0 40px rgba(239, 68, 68, 0.6);
+    }
+
+    @keyframes vinyl-spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (hover: hover) {
+      .play-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .play-btn:hover::after {
+        box-shadow:
+          0 0 0 3px rgba(6, 182, 212, 0.3),
+          0 0 50px var(--accent-glow);
+      }
+    }
+
+    .player__nav-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    /* ======== Mute Button & Hero Fav Button & Nav Button ======== */
+    .mute-btn,
+    .fav-btn-hero,
+    .nav-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-dim);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mute-btn svg,
+    .fav-btn-hero svg,
+    .nav-btn svg {
+      width: 20px;
+      height: 20px;
+      transition: fill 0.2s, color 0.2s;
+    }
+
+    .mute-btn:active,
+    .fav-btn-hero:active,
+    .nav-btn:active {
+      transform: scale(0.92);
+    }
+
+    .mute-btn--muted {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.12);
+    }
+
+    /* ======== Drive Mode Button ======== */
+    .header__drive-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      margin-left: 8px;
+      transition: color 0.3s, transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    
+    .header__drive-btn:hover {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+    
+    .header__drive-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* ======== Drive Mode active ======== */
+    body.drive-mode {
+      overflow: hidden;
+    }
+
+    .sidebar, .genre-bar-mobile, .stations-area, .mini-player, .scroll-to-top, .header__search {
+      transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+    }
+
+    body.drive-mode .sidebar,
+    body.drive-mode .genre-bar-mobile,
+    body.drive-mode .stations-area,
+    body.drive-mode .mini-player,
+    body.drive-mode .scroll-to-top {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.95);
+      pointer-events: none;
+      height: 0;
+      width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    body.drive-mode .header__search {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    body.drive-mode .header {
+      background: transparent;
+      border: none;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 10000;
+    }
+
+    .player {
+      transition: height 0.4s ease, padding 0.4s ease, min-height 0.4s ease;
+    }
+    
+    .player__station, .player__song, .play-btn, .mute-btn, .fav-btn-hero, .nav-btn {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body.drive-mode .player {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh !important;
+      min-height: 100vh !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg);
+      padding: 0;
+      z-index: 9990;
+      overflow-x: hidden;
+    }
+
+    body.drive-mode .player__station {
+      font-size: 2.5rem !important;
+      white-space: normal;
+      margin-bottom: 12px;
+    }
+    
+    body.drive-mode .player__song {
+      font-size: 1rem;
+      margin-bottom: 60px;
+    }
+
+    body.drive-mode .player__controls {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 32px auto;
+      justify-content: space-evenly;
+      gap: 0;
+    }
+
+    body.drive-mode .play-btn {
+      width: 220px !important;
+      height: 220px !important;
+    }
+
+    body.drive-mode .play-btn::before {
+      width: 72px !important;
+      height: 72px !important;
+    }
+
+    body.drive-mode .play-btn svg {
+      width: 36px !important;
+      height: 36px !important;
+    }
+
+    body.drive-mode .mute-btn,
+    body.drive-mode .fav-btn-hero {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    body.drive-mode .mute-btn svg,
+    body.drive-mode .fav-btn-hero svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    body.drive-mode .nav-btn {
+      width: 80px;
+      height: 80px;
+    }
+
+    body.drive-mode .nav-btn svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    body.drive-mode .player__nav-controls {
+      margin-top: 16px;
+      gap: 40px;
+    }
+
+    body.drive-mode .header__drive-btn {
+      color: var(--accent);
+    }
+
+    /* Hidden native audio */
+    #player {
+      display: none;
+    }
+
+    /* ================================================================
+       MOBILE GENRE BAR — horizontal scroll, big touch targets
+       ================================================================ */
+    .genre-bar-mobile {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-surface);
+      flex-shrink: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide scrollbar on mobile genre bar */
+    .genre-bar-mobile::-webkit-scrollbar {
+      display: none;
+    }
+
+    .genre-bar-mobile {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .genre-bar-mobile .genre-btn {
+      white-space: nowrap;
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.04);
+      min-height: 42px;
+    }
+
+    .genre-bar-mobile .genre-btn--active {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .genre-bar-mobile .genre-btn__count {
+      display: none;
+    }
+
+    .genre-bar-mobile .genre-btn__icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .genre-bar-mobile .genre-btn__icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ================================================================
+       STATIONS LIST
+       ================================================================ */
+    .stations-area {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px 12px 100px;
+    }
+
+    .stations-area__head {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    .stations-area__title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .stations-area__count {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    /* Mobile: single column */
+    .stations-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 6px;
+    }
+
+    /* ======== Station Card ======== */
+    .station-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: none;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .station-card:active {
+      transform: scale(0.98);
+      background: var(--bg-card-hover);
+    }
+
+    @media (hover: hover) {
+      .station-card:hover {
+        background: var(--bg-card-hover);
+      }
+    }
+
+    .station-card--active {
+      background: var(--accent-soft);
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+
+    .station-card__icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .station-card__icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-dim);
+    }
+
+    .station-card__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .station-card__info {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .station-card__name {
+      font-family: 'Manrope', 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+
+    .station-card__meta {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+
+    .station-card__bitrate {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 8px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* ======== Favorite Button ======== */
+    .fav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .fav-btn svg {
+      width: 20px;
+      height: 20px;
+      transition: fill 0.2s, color 0.2s;
+    }
+
+    .fav-btn svg.fav-active,
+    .fav-btn-mini svg.fav-active,
+    .fav-btn-hero svg.fav-active {
+      color: var(--accent);
+      fill: var(--accent);
+    }
+
+    .fav-btn:active {
+      transform: scale(0.85);
+    }
+
+    /* ======== Loading / Error states ======== */
+    .state-msg {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .state-msg__spinner {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border: 3px solid rgba(255, 255, 255, 0.06);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ======== Scrollbar (desktop) ======== */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ================================================================
+       DESKTOP — min-width: 768px
+       ================================================================ */
+    @media (min-width: 768px) {
+
+      /* Layout: horizontal with sidebar */
+      .app {
+        flex-direction: row;
+      }
+
+      /* Show sidebar */
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 220px;
+        min-width: 220px;
+        background: var(--bg-surface);
+        padding: 20px 12px;
+        gap: 2px;
+        overflow-y: auto;
+      }
+
+      /* Hide mobile genre bar and drive btn */
+      .genre-bar-mobile,
+      .header__drive-btn {
+        display: none !important;
+      }
+
+      /* Header */
+      .header {
+        padding: 16px 28px;
+        gap: 14px;
+      }
+
+      .header__logo {
+        font-size: 1.25rem;
+      }
+
+      .header__subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+      }
+
+      /* Player hero — auto height to avoid cutoff */
+      .player {
+        min-height: 360px;
+        height: auto;
+        padding: 40px 32px 36px;
+        background:
+          radial-gradient(ellipse at 30% -20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% -10%, rgba(6, 182, 212, 0.04) 0%, transparent 50%),
+          var(--bg);
+      }
+
+      .player__station {
+        font-size: 2rem;
+        max-width: 600px;
+      }
+
+      .player__song {
+        font-size: 0.85rem;
+        margin-bottom: 32px;
+      }
+
+      /* Play button — smaller on desktop */
+      .play-btn {
+        width: 160px;
+        height: 160px;
+      }
+
+      .play-btn::before {
+        width: 56px;
+        height: 56px;
+      }
+
+      .play-btn svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .mute-btn {
+        width: 44px;
+        height: 44px;
+      }
+
+      .mute-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Stations area */
+      .stations-area {
+        padding: 24px 28px 40px;
+      }
+
+      .stations-area__head {
+        margin-bottom: 16px;
+      }
+
+      .stations-area__title {
+        font-size: 1rem;
+      }
+
+      /* Grid: multi-column */
+      .stations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 8px;
+      }
+
+      /* Cards slightly bigger */
+      .station-card {
+        padding: 14px 16px;
+        gap: 14px;
+      }
+
+      .station-card__icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .station-card__name {
+        font-size: 0.85rem;
+      }
+
+      .station-card__meta {
+        font-size: 0.7rem;
+      }
+
+      .station-card__bitrate {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+      }
+
+      /* Sidebar genre hover */
+      .genre-btn:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      .genre-btn--active:hover {
+        background: var(--accent);
+        color: #000;
+      }
+    }
