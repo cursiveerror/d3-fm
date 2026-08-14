@@ -1,4 +1,4 @@
-const CACHE_NAME = 'd3fm-v1';
+const CACHE_NAME = 'd3fm-v1.1';
 const ASSETS = [
   './',
   './index.html',
