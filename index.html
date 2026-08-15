@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 
 <head>
@@ -53,6 +53,9 @@
     <div class="header__search">
       <input type="text" id="station-search" placeholder="Пошук...">
     </div>
+    <button class="header__coffee-btn" id="coffee-modal-btn" title="Підтримати проект">
+      <i data-lucide="coffee"></i>
+    </button>
     <button class="header__drive-btn" id="drive-mode-btn" title="Режим водіння">
       <i data-lucide="car"></i>
     </button>
@@ -112,10 +115,30 @@
       });
     }
   </script>
-  <!-- Cloudflare Web Analytics -->
-  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'
-    data-cf-beacon='{"token": "7c0c38f9324d4e4d9cd317b338858b50"}'></script>
-  <!-- End Cloudflare Web Analytics -->
+  <script data-goatcounter="https://shal3nost.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Coffee Modal -->
+  <div class="modal-overlay" id="coffee-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="coffee-modal-close" title="Закрити"><i data-lucide="x"></i></button>
+
+      <div class="modal-header">
+        <div class="modal-icon"><i data-lucide="coffee"></i></div>
+        <h2 class="modal-title">D3 Records & D3.fm</h2>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>D3.fm</strong> — це цифровий продукт від лейблу <strong>D3 Records</strong>.</p>
+        <p>Ми цінуємо якісний звук, правильну естетику та преміальний дизайн. Ваша підтримка йде не просто розробнику на
+          каву — вона напряму інвестується в розвиток незалежної української електронної музики, нові релізи та
+          розширення функціоналу цього додатка.</p>
+      </div>
+
+      <a href="https://send.monobank.ua/jar/5D1FB9SMrA" target="_blank" rel="noopener noreferrer" class="modal-btn">
+        Підтримати проект
+      </a>
+    </div>
+  </div>
 </body>
 
 </html>

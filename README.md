@@ -1,3 +1,5 @@
+© 2026 D3 Records. All Rights Reserved.
+
 <div align="center">
   <a href="https://cursiveerror.github.io/d3-fm/">
     <picture>
