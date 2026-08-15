@@ -1,7 +1,7 @@
-© 2026 D3 Records. All Rights Reserved.
+© 2026 D3 Records. All Rights Reserved
 
 <div align="center">
-  <a href="https://cursiveerror.github.io/d3-fm/">
+  <a href="https://d3-radio.in.ua">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="assets/logo.svg">
       <source media="(prefers-color-scheme: light)" srcset="assets/logo-black.svg">
@@ -11,7 +11,7 @@
 
   ### Український онлайн радіо програвач
 
-  [**Слухати**](https://cursiveerror.github.io/d3-fm/)
+  [**Слухати**](https://d3-radio.in.ua)
 
   <br>
 
