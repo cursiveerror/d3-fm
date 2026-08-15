@@ -1,7 +1,9 @@
-const CACHE_NAME = 'd3fm-v1.2';
+const CACHE_NAME = 'd3fm-v1.3';
 const ASSETS = [
   './',
   './index.html',
+  './assets/style.css',
+  './assets/app.js',
   './manifest.json',
   './assets/logo.svg',
   './assets/favicon.svg',
