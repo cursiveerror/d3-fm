@@ -80,10 +80,13 @@
     }
 
     .header__search {
-      margin-left: auto;
+      margin: 0 auto;
       position: relative;
       display: flex;
       align-items: center;
+      flex: 1 1 auto;
+      min-width: 0;
+      justify-content: center;
     }
 
 
@@ -95,14 +98,14 @@
       padding: 6px 14px;
       color: var(--text);
       font-size: 0.8rem;
-      width: 110px;
-      transition: width 0.3s, background 0.3s, border-color 0.3s;
+      width: 100%;
+      max-width: 130px;
+      transition: background 0.3s, border-color 0.3s;
       outline: none;
       font-family: inherit;
     }
 
     .header__search input:focus {
-      width: 150px;
       background: rgba(255, 255, 255, 0.1);
       border-color: var(--accent);
     }
@@ -363,6 +366,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
 
     /* ================================================================
@@ -622,7 +626,8 @@
       padding: 0;
     }
 
-    body.drive-mode .header__search {
+    body.drive-mode .header__search,
+    body.drive-mode .header__coffee-btn {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -793,9 +798,14 @@
        ================================================================ */
     .stations-area {
       flex: 1;
+      display: flex;
+      flex-direction: column;
       overflow-y: auto;
       overflow-x: hidden;
       padding: 16px 12px 100px;
+      z-index: 1; /* To sit above the main bottom glow */
+      background: radial-gradient(ellipse at 50% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 70%) bottom center no-repeat local;
+      background-size: 100% 400px;
     }
 
     .stations-area__head {
@@ -1057,6 +1067,20 @@
         letter-spacing: 2px;
       }
 
+      .header__search {
+        margin: 0 0 0 auto;
+        justify-content: flex-end;
+      }
+
+      .header__search input {
+        max-width: 180px;
+        transition: max-width 0.3s, background 0.3s, border-color 0.3s;
+      }
+
+      .header__search input:focus {
+        max-width: 250px;
+      }
+
       /* Player hero — auto height to avoid cutoff */
       .player {
         min-height: 360px;
@@ -1161,6 +1185,7 @@
 
     /* ======== Footer ======== */
     .app-footer {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1168,7 +1193,7 @@
       padding: 40px 16px 24px 16px;
       /* Reduced from 100px */
       border-top: 1px solid var(--border);
-      margin-top: 24px;
+      margin-top: auto;
       color: rgba(255, 255, 255, 0.4);
       font-size: 0.8rem;
     }
