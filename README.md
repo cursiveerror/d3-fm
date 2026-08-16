@@ -33,6 +33,6 @@
 ## Посилання
 
 - 📂 **Репозиторій**: [github.com/cursiveerror/d3-fm](https://github.com/cursiveerror/d3-fm)
-- 🌐 **Жива версія**: [d3-radio.in.ua](https://d3-radio.in.ua)
-
+- 🌐 **Сайт**: [d3-radio.in.ua](https://d3-radio.in.ua)
+<div align="center">
 © 2026 D3 Records. All Rights Reserved
