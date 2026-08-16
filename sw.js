@@ -1,4 +1,4 @@
-const CACHE_NAME = 'd3fm-v1.6';
+const CACHE_NAME = 'd3fm-v1.7';
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const ASSETS = [
   './manifest.json',
   './assets/logo.svg',
   './assets/favicon.svg',
+  './assets/favicon.png',
   './assets/logo-black.svg',
   './assets/vinyl.png',
   './assets/banner.png'
