@@ -1,4 +1,4 @@
-const CACHE_NAME = 'd3fm-v1.4';
+const CACHE_NAME = 'd3fm-v1.6';
 const ASSETS = [
   './',
   './index.html',
@@ -8,7 +8,8 @@ const ASSETS = [
   './assets/logo.svg',
   './assets/favicon.svg',
   './assets/logo-black.svg',
-  './assets/vinyl.png'
+  './assets/vinyl.png',
+  './assets/banner.png'
 ];
 
 self.addEventListener('install', (e) => {
