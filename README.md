@@ -1,5 +1,3 @@
-© 2026 D3 Records. All Rights Reserved
-
 <div align="center">
   <a href="https://d3-radio.in.ua">
     <picture>
@@ -35,4 +33,6 @@
 ## Посилання
 
 - 📂 **Репозиторій**: [github.com/cursiveerror/d3-fm](https://github.com/cursiveerror/d3-fm)
-- 🌐 **Жива версія**: [cursiveerror.github.io/d3-fm](https://cursiveerror.github.io/d3-fm/)
+- 🌐 **Сайт**: [d3-radio.in.ua](https://d3-radio.in.ua)
+<div align="center">
+© 2026 D3 Records. All Rights Reserved
