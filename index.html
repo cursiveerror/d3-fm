@@ -5,17 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>D3.fm / Dashboard</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Українське онлайн радіо плеєр — слухай найкращі радіостанції України в один дотик. Просто, швидко та безкоштовно">
+  <meta name="keywords" content="D3.fm, онлайн радіо, радіо програвач, українські радіостанції, веб-плеєр, слухати онлайн, музика, радіо в інтернеті">
+  <meta name="theme-color" content="#09090B">
+
+  <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="https://d3-radio.in.ua/assets/favicon.png">
   <link rel="shortcut icon" href="https://d3-radio.in.ua/assets/favicon.png">
   <link rel="apple-touch-icon" href="https://d3-radio.in.ua/assets/favicon.png">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#09090B">
-  <!-- Keywords для SEO -->
-  <meta name="keywords"
-    content="D3.fm, онлайн радіо, радіо програвач, українські радіостанції, веб-плеєр, слухати онлайн, музика, радіо в інтернеті">
-  <meta name="description"
-    content="Українське онлайн радіо плеєр — слухай найкращі радіостанції України в один дотик. Просто, швидко та безкоштовно">
 
   <!-- Open Graph (OG) Meta Tags for social media previews -->
   <meta property="og:type" content="website">
@@ -41,6 +42,17 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
   <link rel="stylesheet" href="assets/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RadioStation",
+    "name": "D3.fm",
+    "url": "https://d3-radio.in.ua/",
+    "description": "Український онлайн радіо програвач.",
+    "inLanguage": "uk"
+  }
+  </script>
 </head>
 
 <body>
@@ -68,7 +80,7 @@
   <!-- Header -->
   <header class="header">
     <span class="header__logo">
-      <img src="assets/logo.svg" alt="D3.fm Logo" style="height: 36px; display: block;">
+      <img src="assets/logo.svg" alt="D3.fm Logo" class="header__logo-img">
     </span>
     <span class="header__sep"></span>
     <span class="header__subtitle">Dashboard</span>
