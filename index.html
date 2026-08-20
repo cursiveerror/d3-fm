@@ -1,17 +1,178 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
-    <meta charset="UTF-8">
-    <!-- Головна магія: миттєвий HTML-редирект -->
-    <meta http-equiv="refresh" content="0; url=https://d3-radio.in.ua/">
-    <title>Перенаправлення на D3.fm...</title>
-    <script>
-        // Резервний JS-редирект, якщо мета-тег не спрацює
-        window.location.replace("https://d3-radio.in.ua/");
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.fm / Dashboard</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Українське онлайн радіо плеєр — слухай найкращі радіостанції України в один дотик. Просто, швидко та безкоштовно">
+  <meta name="keywords" content="D3.fm, онлайн радіо, радіо програвач, українські радіостанції, веб-плеєр, слухати онлайн, музика, радіо в інтернеті">
+  <meta name="theme-color" content="#09090B">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://d3-radio.in.ua/assets/favicon.png">
+  <link rel="shortcut icon" href="https://d3-radio.in.ua/assets/favicon.png">
+  <link rel="apple-touch-icon" href="https://d3-radio.in.ua/assets/favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Open Graph (OG) Meta Tags for social media previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://d3-radio.in.ua/">
+  <meta property="og:title" content="D3.fm / Українське онлайн-радіо">
+  <meta property="og:description" content="Потоки найкращих радіостанцій України.">
+  <meta property="og:image" content="https://d3-radio.in.ua/assets/banner.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card / Large Banner for Telegram/Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="D3.fm / Радіо в кишені!">
+  <meta name="twitter:description" content="Сотні станцій в один дотик">
+  <meta name="twitter:image" content="https://d3-radio.in.ua/assets/banner.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://de1.api.radio-browser.info" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <link rel="stylesheet" href="assets/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RadioStation",
+    "name": "D3.fm",
+    "url": "https://d3-radio.in.ua/",
+    "description": "Український онлайн радіо програвач.",
+    "inLanguage": "uk"
+  }
+  </script>
 </head>
-<body style="background-color: #1a1a1a; color: #fff; font-family: sans-serif; text-align: center; padding-top: 20vh;">
-    <p>Завантаження станцій D3.fm...</p>
-    <p>Якщо вас не перенаправило автоматично, <a href="https://d3-radio.in.ua/" style="color: #06b6d4;">натисніть тут</a>.</p>
+
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button id="scroll-to-top" class="scroll-to-top" title="Вгору">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
+  <!-- Sticky Mini Player -->
+  <div class="mini-player" id="mini-player">
+    <button class="mini-player__vinyl" id="mini-play-btn" title="Play / Pause">
+      <i data-lucide="play"></i>
+    </button>
+    <div class="mini-player__info">
+      <div class="mini-player__station" id="mini-station">Оберіть станцію</div>
+    </div>
+    <div class="mini-player__controls">
+      <button class="mini-btn fav-btn-mini" id="mini-fav-btn" title="Додати в улюблене"><i
+          data-lucide="heart"></i></button>
+      <button class="mini-btn" id="mini-mute-btn" title="Mute / Unmute"><i data-lucide="volume-2"></i></button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <span class="header__logo">
+      <img src="assets/logo.svg" alt="D3.fm Logo" class="header__logo-img">
+    </span>
+    <span class="header__sep"></span>
+    <span class="header__subtitle">Dashboard</span>
+    <div class="header__search">
+      <input type="text" id="station-search" placeholder="Пошук...">
+    </div>
+    <button class="header__coffee-btn" id="coffee-modal-btn" title="Підтримати проект">
+      <i data-lucide="coffee"></i>
+    </button>
+    <button class="header__drive-btn" id="drive-mode-btn" title="Режим водіння">
+      <i data-lucide="car"></i>
+    </button>
+  </header>
+
+  <!-- Hidden native audio element -->
+  <audio id="player"></audio>
+
+  <div class="app">
+
+    <!-- Sidebar — Genres (desktop) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__title">Жанри</div>
+      <!-- Buttons injected by JS -->
+    </aside>
+
+    <div class="main">
+
+      <!-- Mobile genre bar -->
+      <div class="genre-bar-mobile" id="genre-bar-mobile"></div>
+
+      <!-- Player hero -->
+      <section class="player" id="player-hero">
+        <div class="player__station" id="player-station">Оберіть станцію</div>
+        <div class="player__song" id="player-song">—</div>
+
+        <div class="player__controls">
+          <button class="mute-btn" id="mute-btn" title="Mute / Unmute"><i data-lucide="volume-2"></i></button>
+          <button class="play-btn" id="play-btn" title="Play / Pause"><i data-lucide="play"></i></button>
+          <button class="fav-btn-hero" id="hero-fav-btn" title="Додати в улюблене"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="player__nav-controls">
+          <button class="nav-btn" id="prev-btn" title="Попередня станція"><i data-lucide="skip-back"></i></button>
+          <button class="nav-btn" id="next-btn" title="Наступна станція"><i data-lucide="skip-forward"></i></button>
+        </div>
+      </section>
+
+      <!-- Stations grid -->
+      <section class="stations-area" id="stations-area">
+        <div class="state-msg" id="loading-msg">
+          <div class="state-msg__spinner"></div>
+          <div>Завантаження станцій...</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="assets/app.js" defer></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker registered', reg))
+          .catch(err => console.error('Service Worker registration failed', err));
+      });
+    }
+  </script>
+  <script data-goatcounter="https://shal3nost.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Coffee Modal -->
+  <div class="modal-overlay" id="coffee-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="coffee-modal-close" title="Закрити"><i data-lucide="x"></i></button>
+
+      <div class="modal-header">
+        <div class="modal-icon"><i data-lucide="coffee"></i></div>
+        <h2 class="modal-title">D3 Records & D3.fm</h2>
+      </div>
+
+      <div class="modal-body">
+        <p><strong>D3.fm</strong> — це цифровий продукт від лейблу <strong>D3 Records</strong>.</p>
+        <p>Ми цінуємо якісний звук, правильну естетику та преміальний дизайн. Ваша підтримка йде не просто розробнику на
+          каву — вона напряму інвестується в розвиток незалежної української електронної музики, нові релізи та
+          розширення функціоналу цього додатка.</p>
+      </div>
+
+      <a href="https://send.monobank.ua/jar/5D1FB9SMrA" target="_blank" rel="noopener noreferrer" class="modal-btn">
+        Підтримати проект
+      </a>
+    </div>
+  </div>
 </body>
+
 </html>
