@@ -5,11 +5,22 @@ const API_URL =
   'https://de1.api.radio-browser.info/json/stations/search' +
   '?country=Ukraine&hidebroken=true&order=clickcount&reverse=true';
 
-// Жанри, які ми хочемо виділити в сайдбарі
-const GENRE_WHITELIST = [
-  'favorites', 'pop', 'rock', 'news', 'electronic', 'jazz', 'rap',
-  'dance', 'classical', 'folk', 'ambient', 'talk',
-  'hits', 'chillout', 'lounge', 'techno', 'house'
+// Жанри та конфігурація фільтрів
+const GENRE_DEFINITIONS = [
+  { id: 'favorites', label: 'Улюблене', icon: 'heart' },
+  { id: 'pop', label: 'Поп', icon: 'mic', tags: ['pop'] },
+  { id: 'rock', label: 'Рок', icon: 'guitar', tags: ['rock'] },
+  { id: 'electronic', label: 'Танцювальна', icon: 'disc-3', tags: ['electronic', 'dance'] },
+  { id: 'news', label: 'Новини', icon: 'newspaper', tags: ['news', 'talk'] },
+  { id: 'chillout', label: 'Релакс', icon: 'snowflake', tags: ['chillout', 'lounge'] },
+  { id: 'hits', label: 'Хіти', icon: 'star', tags: ['hits'] },
+  { id: 'jazz', label: 'Джаз', icon: 'music', tags: ['jazz'] },
+  { id: 'rap', label: 'Реп', icon: 'mic-vocal', tags: ['rap'] },
+  { id: 'classical', label: 'Класична', icon: 'music-2', tags: ['classical'] },
+  { id: 'folk', label: 'Фолк', icon: 'music-4', tags: ['folk'] },
+  { id: 'ambient', label: 'Ембієнт', icon: 'moon', tags: ['ambient'] },
+  { id: 'techno', label: 'Техно', icon: 'zap', tags: ['techno'] },
+  { id: 'house', label: 'Хаус', icon: 'home', tags: ['house'] }
 ];
 
 const audio = document.getElementById('player');
@@ -68,16 +79,19 @@ function buildGenreMap(stations) {
     favorites: stations.filter(s => favorites.includes(s.stationuuid))
   };
 
+  GENRE_DEFINITIONS.forEach(g => {
+    if (g.tags) map[g.id] = [];
+  });
+
   stations.forEach((s) => {
     if (!s.tags) return;
 
     // tags — рядок через кому
     const tags = s.tags.toLowerCase().split(',').map(t => t.trim()).filter(Boolean);
 
-    tags.forEach((tag) => {
-      if (GENRE_WHITELIST.includes(tag)) {
-        if (!map[tag]) map[tag] = [];
-        map[tag].push(s);
+    GENRE_DEFINITIONS.forEach(g => {
+      if (g.tags && g.tags.some(tag => tags.includes(tag))) {
+        map[g.id].push(s);
       }
     });
   });
@@ -102,31 +116,18 @@ function getSongInfo(station) {
 // ================================================================
 // Lucide icon name → genre label
 const GENRE_CONFIG = {
-  all: { icon: 'radio', label: 'Усі' },
-  favorites: { icon: 'heart', label: 'Улюблене' },
-  pop: { icon: 'mic', label: 'Pop' },
-  rock: { icon: 'guitar', label: 'Rock' },
-  news: { icon: 'newspaper', label: 'News' },
-  electronic: { icon: 'cpu', label: 'Electronic' },
-  jazz: { icon: 'music', label: 'Jazz' },
-  rap: { icon: 'mic-vocal', label: 'Rap' },
-  dance: { icon: 'disc-3', label: 'Dance' },
-  classical: { icon: 'music-2', label: 'Classical' },
-  folk: { icon: 'music-4', label: 'Folk' },
-  ambient: { icon: 'moon', label: 'Ambient' },
-  talk: { icon: 'message-circle', label: 'Talk' },
-  hits: { icon: 'star', label: 'Hits' },
-  chillout: { icon: 'snowflake', label: 'Chillout' },
-  lounge: { icon: 'wine', label: 'Lounge' },
-  techno: { icon: 'zap', label: 'Techno' },
-  house: { icon: 'home', label: 'House' },
+  all: { icon: 'radio', label: 'Усі' }
 };
 
+GENRE_DEFINITIONS.forEach(g => {
+  GENRE_CONFIG[g.id] = { icon: g.icon, label: g.label };
+});
+
 function renderGenres() {
-  // Будуємо впорядкований список жанрів: спочатку "all", потім по кількості
+  // Будуємо впорядкований список жанрів: спочатку "all", потім визначені жанри за наявності станцій
   const orderedGenres = ['all'];
-  GENRE_WHITELIST.forEach(g => {
-    if (genreMap[g] && genreMap[g].length > 0) orderedGenres.push(g);
+  GENRE_DEFINITIONS.forEach(g => {
+    if (genreMap[g.id] && genreMap[g.id].length > 0) orderedGenres.push(g.id);
   });
 
   const makeBtn = (genre) => {
