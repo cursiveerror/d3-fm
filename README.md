@@ -7,34 +7,20 @@
     </picture>
   </a>
 
-  <br><br>
-
   <p><em>Minimalist web player for Ukrainian radio.</em></p>
   
-  <br>
-
-  <a href="https://d3-radio.in.ua">
-    <img src="https://img.shields.io/badge/Listen_Live-000000?style=for-the-badge&logo=musicbrainz&logoColor=FFFFFF" alt="Listen Live" />
-  </a>
-
-  <br><br>
-
   <p>
-    <img src="https://img.shields.io/badge/PWA-Ready-1A1A1A?style=flat-square&logo=pwa&logoColor=FFFFFF" alt="PWA Ready" />
-    <img src="https://img.shields.io/badge/API-Radio_Browser-1A1A1A?style=flat-square&logo=json&logoColor=FFFFFF" alt="Radio Browser API" />
-    <img src="https://img.shields.io/badge/Media_Session-Supported-1A1A1A?style=flat-square&logo=androidauto&logoColor=FFFFFF" alt="Media Session API" />
+    <img src="https://img.shields.io/badge/PWA-Ready-1A1A1A?style=flat-square&logo=pwa&logoColor=38B6FF" alt="PWA Ready" />
+    <img src="https://img.shields.io/badge/API-Radio_Browser-1A1A1A?style=flat-square&logo=json&logoColor=38B6FF" alt="Radio Browser API" />
+    <img src="https://img.shields.io/badge/Media_Session-Supported-1A1A1A?style=flat-square&logo=androidauto&logoColor=38B6FF" alt="Media Session API" />
   </p>
 </div>
 
 ---
 
-<br>
-
 ## ✦ Core Concept
 
 **D3.fm** strips away the visual noise of modern media players. It is a lightweight, zero-dependency streaming client that blends natively into any operating system, delivering pure audio without heavy frameworks or UI bloat.
-
-<br>
 
 ## ✦ Technical Profile
 
