@@ -7,60 +7,55 @@
     </picture>
   </a>
 
-  ### Український онлайн радіо програвач / Ukrainian Online Radio Player
+  <br><br>
 
-  [**Слухати / Listen**](https://d3-radio.in.ua)
-
+  <p><em>Curated Ukrainian radio streams. Minimalist, fast, and native to your device.</em></p>
+  
   <br>
 
-  [![PWA Ready](https://img.shields.io/badge/PWA-Ready-success.svg)](#)
-  [![API](https://img.shields.io/badge/API-Radio--Browser-orange.svg)](https://www.radio-browser.info/)
-  [![Media Session API](https://img.shields.io/badge/Media_Session_API-Supported-blue.svg)](#)
+  <a href="https://d3-radio.in.ua">
+    <img src="https://img.shields.io/badge/Listen_Live-1A1A1A?style=for-the-badge&logo=musicbrainz&logoColor=FFFFFF" alt="Listen Live" />
+  </a>
 
-  <br>
+  <br><br>
 
-  [Українська](#українська-версія) | [English](#english-version)
-
+  <p>
+    <img src="https://img.shields.io/badge/PWA-Ready-FAFAFA?style=flat-square&logo=pwa&logoColor=1A1A1A&color=FAFAFA" alt="PWA Ready" />
+    <img src="https://img.shields.io/badge/API-Radio_Browser-FAFAFA?style=flat-square&logo=json&logoColor=1A1A1A&color=FAFAFA" alt="Radio Browser API" />
+    <img src="https://img.shields.io/badge/Media_Session-Supported-FAFAFA?style=flat-square&logo=androidauto&logoColor=1A1A1A&color=FAFAFA" alt="Media Session API" />
+  </p>
 </div>
 
 ---
 
-## Українська версія
+<br>
 
-**D3.fm** - це швидкий, мінімалістичний та сучасний веб-плеєр для прослуховування українських радіостанцій.
+## ✦ The Concept
 
-### Особливості
+**D3.fm** was built with a singular focus: to strip away the visual noise of modern media players, leaving only the music. It is a lightweight, zero-dependency streaming client that blends beautifully into any operating system, providing instant access to Ukrainian radio stations. 
 
-- **Швидкість**: Миттєве завантаження завдяки використанню нативного JS.
-- **PWA (Progressive Web App)**: Встановлюйте як окремий додаток на смартфон або ПК.
-- **Media Session API**: Керуйте відтворенням прямо з екрану блокування системи або шторки сповіщень.
-- **Сучасний дизайн**: Стильна темна тема, приємні мікро-анімації та зручний інтерфейс.
+No heavy frameworks. No distractions. Just pure Vanilla JavaScript delivering a fluid, uninterrupted auditory experience.
 
-### Посилання
+<br>
 
-- **Репозиторій**: [github.com/cursiveerror/d3-fm](https://github.com/cursiveerror/d3-fm)
-- **Сайт**: [d3-radio.in.ua](https://d3-radio.in.ua)
+## ✦ Seamless Experience
 
----
+• **Zero Latency**: By avoiding heavy UI libraries, the player achieves near-instant load times.  
+• **Native Integration**: Install D3.fm directly to your home screen or desktop. It looks, feels, and behaves like a native application (PWA).  
+• **Media Session API**: Control your streams effortlessly from your lock screen, car Bluetooth interface, or OS notification center.  
+• **Aesthetic Purity**: A highly polished dark interface accented with subtle micro-animations that respond naturally to your interactions.  
 
-## English Version
+<br>
 
-**D3.fm** is a fast, minimalist, and modern web player for streaming Ukrainian radio stations.
+## ✦ Connect & Explore
 
-### Features
+Whether you want to explore the source code or simply tune in, you can find everything below:
 
-- **Performance**: Instant loading powered by pure Vanilla JavaScript without heavy frameworks.
-- **Progressive Web App (PWA)**: Installable as a standalone application on mobile and desktop devices.
-- **Media Session API**: Full playback control directly from the system lock screen or notification center.
-- **Modern UI**: Sleek dark theme, subtle micro-animations, and a highly responsive user interface.
-
-### Links
-
-- **Repository**: [github.com/cursiveerror/d3-fm](https://github.com/cursiveerror/d3-fm)
-- **Website**: [d3-radio.in.ua](https://d3-radio.in.ua)
+— **Live Player:** [d3-radio.in.ua](https://d3-radio.in.ua)  
+— **Repository:** [github.com/cursiveerror/d3-fm](https://github.com/cursiveerror/d3-fm)  
 
 <br>
 
 <div align="center">
-© 2026 D3 Records. All Rights Reserved.
+  <p><sub>&copy; 2026 D3 Records. Handcrafted for the love of music.</sub></p>
 </div>
